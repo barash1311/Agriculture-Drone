@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dashboard_background">
+
+    <LinearLayout
+        android:id="@+id/header_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_header_panel"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/header_height"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/spacing_small"
+        android:paddingTop="@dimen/spacing_small"
+        android:paddingEnd="@dimen/spacing_small"
+        android:paddingBottom="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_app_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="@string/dashboard_title"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_app_title" />
+
+        <LinearLayout
+            android:id="@+id/layout_connection_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/indicator_connection_dot"
+                android:layout_width="@dimen/indicator_dot_size"
+                android:layout_height="@dimen/indicator_dot_size"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:background="@drawable/bg_indicator_dot" />
+
+            <TextView
+                android:id="@+id/text_connection_status"
+                style="@style/TextAppearance.AgriDrone.StatusValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/state_disconnected"
+                android:textColor="@color/disconnected" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_connection_action"
+            style="@style/Widget.AgriDrone.Button.Disconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connect_to_drone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/banner_safety_alert"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:background="@drawable/bg_banner_notice"
+        android:gravity="center"
+        android:minHeight="@dimen/banner_height"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/spacing_medium"
+        android:paddingEnd="@dimen/spacing_medium"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_container"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/text_safety_banner_message"
+            style="@style/TextAppearance.AgriDrone.SafetyState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notice_message"
+            android:textColor="@color/notice_yellow" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/layout_debug_controls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/banner_safety_alert">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/spacing_small"
+            android:paddingBottom="@dimen/spacing_large">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_battery"
+                style="@style/Widget.AgriDrone.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding_horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.CardTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/card_battery" />
+
+                        <TextView
+                            android:id="@+id/text_battery_safety_badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_status_safe"
+                            android:paddingStart="@dimen/spacing_small"
+                            android:paddingTop="@dimen/spacing_tiny"
+                            android:paddingEnd="@dimen/spacing_small"
+                            android:paddingBottom="@dimen/spacing_tiny"
+                            android:text="@string/safety_normal"
+                            android:textColor="@color/safe_green"
+                            android:textSize="@dimen/text_status_label" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:paddingBottom="@dimen/spacing_medium">
+
+                        <TextView
+                            android:id="@+id/text_battery_percent"
+                            style="@style/TextAppearance.AgriDrone.BatteryPercent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_percent" />
+
+                        <TextView
+                            android:id="@+id/text_battery_percent_unit"
+                            style="@style/TextAppearance.AgriDrone.BatteryPercentUnit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/unit_percent" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/spacing_small"
+                        android:background="@color/divider" />
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_pack_voltage" />
+                        <TextView
+                            android:id="@+id/text_pack_voltage"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_current" />
+                        <TextView
+                            android:id="@+id/text_current_draw"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_temperature" />
+                        <TextView
+                            android:id="@+id/text_temperature"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_remaining_time" />
+                        <TextView
+                            android:id="@+id/text_remaining_flight_time"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_calculating" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Resting Voltage" />
+                        <TextView
+                            android:id="@+id/text_resting_voltage"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_cell_health"
+                style="@style/Widget.AgriDrone.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding_horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.CardTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/card_cell_health" />
+
+                        <TextView
+                            android:id="@+id/text_cell_configuration"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_detecting"
+                            android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/Widget.AgriDrone.MetricRow"
+                        android:layout_marginTop="@dimen/spacing_small">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_average_cell" />
+                        <TextView
+                            android:id="@+id/text_cell_average"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_minimum_cell" />
+                        <TextView
+                            android:id="@+id/text_cell_min"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_maximum_cell" />
+                        <TextView
+                            android:id="@+id/text_cell_max"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_cell_delta" />
+                        <TextView
+                            android:id="@+id/text_cell_delta"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_lowest_cell" />
+                        <TextView
+                            android:id="@+id/text_cell_lowest"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:layout_marginBottom="@dimen/spacing_small"
+                        android:background="@color/divider" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_battery_cells"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="12"
+                        tools:listitem="@layout/item_battery_cell" />
+
+                    <TextView
+                        android:id="@+id/text_no_cells_placeholder"
+                        style="@style/TextAppearance.AgriDrone.StatusLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_medium"
+                        android:text="@string/placeholder_no_cells"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_return_safety"
+                style="@style/Widget.AgriDrone.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding_horizontal">
+
+                    <TextView
+                        style="@style/TextAppearance.AgriDrone.CardTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/card_return_safety" />
+
+                    <LinearLayout
+                        style="@style/Widget.AgriDrone.MetricRow"
+                        android:layout_marginTop="@dimen/spacing_small">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_distance_home" />
+                        <TextView
+                            android:id="@+id/text_distance_home"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_value" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_current_battery" />
+                        <TextView
+                            android:id="@+id/text_rtl_current_battery"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_percent" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_estimated_return" />
+                        <TextView
+                            android:id="@+id/text_estimated_return_time"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_calculating" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_required_rtl" />
+                        <TextView
+                            android:id="@+id/text_required_rtl_battery"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_percent" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_safety_margin" />
+                        <TextView
+                            android:id="@+id/text_safety_margin"
+                            style="@style/TextAppearance.AgriDrone.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15%" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:layout_marginBottom="@dimen/spacing_small"
+                        android:background="@color/divider" />
+
+                    <TextView
+                        android:id="@+id/text_rtl_status"
+                        style="@style/TextAppearance.AgriDrone.RtlStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/rtl_safe"
+                        android:textColor="@color/safe_green" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_system"
+                style="@style/Widget.AgriDrone.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding_horizontal">
+
+                    <TextView
+                        style="@style/TextAppearance.AgriDrone.CardTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/card_system" />
+
+                    <LinearLayout
+                        style="@style/Widget.AgriDrone.MetricRow"
+                        android:layout_marginTop="@dimen/spacing_small">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_telemetry" />
+                        <TextView
+                            android:id="@+id/text_status_telemetry"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/telemetry_waiting"
+                            android:textColor="@color/disconnected" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_mavlink" />
+                        <TextView
+                            android:id="@+id/text_status_mavlink"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status_none"
+                            android:textColor="@color/disconnected" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_gps" />
+                        <TextView
+                            android:id="@+id/text_status_gps"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status_unknown"
+                            android:textColor="@color/disconnected" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_home" />
+                        <TextView
+                            android:id="@+id/text_status_home"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status_not_set"
+                            android:textColor="@color/disconnected" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_logging" />
+                        <TextView
+                            android:id="@+id/text_status_logging"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status_off"
+                            android:textColor="@color/disconnected" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Widget.AgriDrone.MetricRow">
+                        <TextView
+                            style="@style/TextAppearance.AgriDrone.MetricLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_voice" />
+                        <TextView
+                            android:id="@+id/text_status_voice"
+                            style="@style/TextAppearance.AgriDrone.StatusValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status_off"
+                            android:textColor="@color/disconnected" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:layout_marginBottom="@dimen/spacing_small"
+                        android:background="@color/divider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.AgriDrone.MetricLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/label_spray_safety" />
+
+                            <TextView
+                                style="@style/TextAppearance.AgriDrone.StatusLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Auto pump cutoff at 20%"
+                                android:textColor="@color/text_tertiary" />
+                        </LinearLayout>
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switch_spray_safety"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:contentDescription="@string/cd_spray_toggle" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_debug_controls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:saveEnabled="false"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/surface_primary"
+        app:cardCornerRadius="@dimen/radius_card"
+        app:strokeColor="@color/divider"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_small">
+
+            <LinearLayout
+                android:id="@+id/text_scenario_toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:minHeight="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.AgriDrone.StatusValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/scenario_heading"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/text_scenario_toggle_label"
+                    style="@style/TextAppearance.AgriDrone.StatusValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scenario_expand"
+                    android:textColor="@color/text_primary" />
+            </LinearLayout>
+
+            <GridLayout
+                android:id="@+id/layout_scenario_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_normal"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Normal"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_notice"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Notice (30%)"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_warning_battery"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Warn (20%)"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_warning_cell"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Warn Cell (3.65V)"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_cell_imbalance"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Cell Fault (>0.08V)"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_critical_rtl"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Critical RTL"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_critical_cell"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Critical Cell (3.50V)"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_emergency"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Emergency (3.40V)"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_rapid_sag"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Rapid Sag"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_scenario_telemetry_lost"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="3dp"
+                    android:text="Drop Telemetry"
+                    android:textSize="12sp" />
+            </GridLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_connection_landing"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_dashboard_background"
+        android:elevation="80dp"
+        android:padding="@dimen/spacing_large"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layout_landing_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="360dp">
+
+            <TextView
+                android:id="@+id/text_landing_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/app_name"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_app_title" />
+
+            <LinearLayout
+                android:id="@+id/layout_landing_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/indicator_landing_dot"
+                    android:layout_width="@dimen/indicator_dot_size"
+                    android:layout_height="@dimen/indicator_dot_size"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:background="@drawable/bg_indicator_dot_hollow" />
+
+                <TextView
+                    android:id="@+id/text_connection_landing_status"
+                    style="@style/TextAppearance.AgriDrone.StatusLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/state_disconnected"
+                    android:textColor="@color/status_idle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_landing_demo"
+                    style="@style/Widget.AgriDrone.Button.Connect"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/mode_demo_button"
+                    android:textSize="@dimen/text_button"
+                    app:backgroundTint="@color/text_primary"
+                    app:cornerRadius="@dimen/radius_button" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_landing_real_time"
+                    style="@style/Widget.AgriDrone.Button.Disconnect"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="@string/mode_real_time_button"
+                    android:textSize="@dimen/text_button" />
+
+                <ProgressBar
+                    android:id="@+id/progress_landing_connect"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_landing_source"
+                style="@style/TextAppearance.AgriDrone.StatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                android:textColor="@color/text_tertiary"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/overlay_critical_alert"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/critical_overlay_bg"
+        android:clickable="true"
+        android:elevation="100dp"
+        android:focusable="true"
+        android:padding="@dimen/critical_overlay_padding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/text_critical_title"
+            style="@style/TextAppearance.AgriDrone.CriticalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/critical_rtl_title"
+            app:layout_constraintBottom_toTopOf="@id/text_critical_instruction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/text_critical_instruction"
+            style="@style/TextAppearance.AgriDrone.CriticalSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/critical_rtl_message"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@id/text_critical_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_critical_title" />
+
+        <TextView
+            android:id="@+id/text_critical_detail"
+            style="@style/TextAppearance.AgriDrone.CriticalSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:text="@string/critical_rtl_detail"
+            android:textColor="@color/text_primary"
+            app:layout_constraintBottom_toTopOf="@id/layout_critical_metrics"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_critical_instruction" />
+
+        <LinearLayout
+            android:id="@+id/layout_critical_metrics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/text_critical_persistent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_critical_detail">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Battery" />
+
+                <TextView
+                    android:id="@+id/text_critical_battery"
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Required RTL" />
+
+                <TextView
+                    android:id="@+id/text_critical_required_rtl"
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_large"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Min Cell" />
+
+                <TextView
+                    android:id="@+id/text_critical_min_cell"
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.48 V" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance Home" />
+
+                <TextView
+                    android:id="@+id/text_critical_distance"
+                    style="@style/TextAppearance.AgriDrone.CriticalMetricValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.2 km" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/text_critical_persistent"
+            style="@style/TextAppearance.AgriDrone.StatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/critical_alert_persistent"
+            android:textColor="@color/text_primary"
+            app:layout_constraintBottom_toTopOf="@id/button_critical_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_critical_back"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/button_back_dashboard"
+            android:textColor="@color/white"
+            app:strokeColor="@color/text_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

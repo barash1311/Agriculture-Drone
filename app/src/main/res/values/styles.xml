@@ -1,0 +1,154 @@
+<resources>
+    
+    <style name="Widget.AgriDrone" parent="" />
+    <style name="TextAppearance.AgriDrone" parent="android:TextAppearance" />
+
+    <style name="Widget.AgriDrone.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardCornerRadius">@dimen/radius_card</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="android:layout_marginStart">@dimen/card_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/card_margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/card_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/card_margin_vertical</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CardTitle" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_card_title</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.BatteryPercent" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_battery_percent</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.BatteryPercentUnit" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_battery_percent_unit</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.SafetyState" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_safety_state</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.MetricValue" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_metric_value</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.MetricLabel" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_metric_label</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.MetricUnit" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_metric_unit</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.StatusLabel" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_status_label</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.StatusValue" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_status_label</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.RtlStatus" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_rtl_status</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Widget.AgriDrone.Button.Connect" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="backgroundTint">@color/text_primary</item>
+        <item name="android:textColor">@color/background</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Widget.AgriDrone.Button.Disconnect" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">@dimen/spacing_small</item>
+        <item name="android:paddingEnd">@dimen/spacing_small</item>
+        <item name="backgroundTint">@color/surface</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Widget.AgriDrone.MetricRow" parent="Widget.AgriDrone">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">@dimen/metric_row_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/metric_row_padding_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CellLabel" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_cell_label</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CellVoltage" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_cell_voltage</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CriticalTitle" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_critical_title</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CriticalSubtitle" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_critical_subtitle</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CriticalMetricLabel" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_critical_metric_label</item>
+        <item name="android:textColor">#B3FFFFFF</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AgriDrone.CriticalMetricValue" parent="TextAppearance.AgriDrone">
+        <item name="android:textSize">@dimen/text_critical_metric_value</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+</resources>
